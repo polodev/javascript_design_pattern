@@ -16,18 +16,43 @@ function Image () {
   return image;
 }
 
-var mediaFactory = {
-   mediaType : {
+//object approach
+// var mediaFactory = {
+//    mediaType : {
+//     Video : Video(),
+//     Image : Image()
+//   },
+//   createMedia : function (type, attributes) {
+//     var MediaType = this.mediaType[type];
+//     return new MediaType(attributes);
+//   }
+  
+// }
+
+// var myVideo = mediaFactory.createMedia('Video', {
+//   name : 'my video',
+//   length : 4.5
+// })
+// var myImage = mediaFactory.createMedia('Image', {
+//   width : 500,
+//   height : 300
+// })
+
+
+//functional approach
+var _mediaFactory = function () {
+  var mediaType = {
     Video : Video(),
     Image : Image()
-  },
-  createMedia : function (type, attributes) {
-    var MediaType = this.mediaType[type];
-    return new MediaType(attributes);
   }
-  
+  return {
+    createMedia : function (type, attributes) {
+      var MediaType = mediaType[type];
+      return new MediaType(attributes);
+    }
+  }
 }
-
+mediaFactory = _mediaFactory();
 var myVideo = mediaFactory.createMedia('Video', {
   name : 'my video',
   length : 4.5
